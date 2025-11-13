@@ -21,7 +21,7 @@ public class WalkPlayerState : PlayerState
 
     public override void StateFixedUpdate(StateMachine state_machine)
     {
-        if (player.controller.isGrounded && player.vertical_velocity < 0)
+        if (player.controller.isGrounded && player.vertical_velocity <= 0)
         {
             player.vertical_velocity = -2f;
         }
@@ -37,15 +37,22 @@ public class WalkPlayerState : PlayerState
         {
             state_machine.TransitionToState(state_machine.states[0]);
         }
-        if (player.jump && player.controller.isGrounded) //Transition to air state by jumping
+        if (player.jump && player.release_jump && player.controller.isGrounded) //Transition to air state by jumping
         {
             player.vertical_velocity = player.jump_impulse;
-            Debug.Log(player.vertical_velocity);
+            player.initial_y = player.transform.position.y;
+            player.max_y = player.initial_y + 0.5f;
+            player.hit_max_y = false;
+            player.hit_max_fall = false;
+            player.release_jump = false;
             state_machine.TransitionToState(state_machine.states[2]);
         }
         if(!player.controller.isGrounded) //Transition to air state by falling
         {
             player.vertical_velocity = 0;
+            player.hit_max_y = true;
+            player.hit_max_fall = false;
+
             state_machine.TransitionToState(state_machine.states[2]);
         }
         #endregion
