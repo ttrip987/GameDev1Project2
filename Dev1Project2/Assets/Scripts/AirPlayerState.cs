@@ -19,8 +19,20 @@ public class AirPlayerState : PlayerState
 
     public override void StateFixedUpdate(StateMachine state_machine)
     {
-        //Take gravity's effect, slowly making the player fall
-        player.vertical_velocity -= player.gravity * Time.fixedDeltaTime;
+        //Player goes up at the same speed, then smoothly transitions to falling
+        if (player.hit_max_y && player.hit_max_fall) //Just falling
+        {
+            player.vertical_velocity = player.fall_speed;
+        }
+        else if(player.hit_max_y) //Transition from peak height to falling
+        {
+            player.vertical_velocity += player.fall_speed * 0.08f;
+            if (player.vertical_velocity <= player.fall_speed) { player.hit_max_fall = true; }
+        }
+        else if (player.transform.position.y > player.max_y && !player.hit_max_y) //Waits until until player reaches max height
+        {
+            player.hit_max_y = true;
+        }
 
         //Take the player speed based on if they're sprinting or not
         float speed = (player.sprint) ? player.sprint_speed : player.standard_speed;
@@ -30,7 +42,7 @@ public class AirPlayerState : PlayerState
         player.controller.Move(new Vector3(h_velocity, player.vertical_velocity, 0) * Time.fixedDeltaTime);
 
         #region Change States
-        if (player.controller.isGrounded)
+        if (player.controller.isGrounded) //Change to walk state
         {
             state_machine.TransitionToState(state_machine.states[1]);
         }
