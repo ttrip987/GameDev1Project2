@@ -25,10 +25,22 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool sprint;
 
     //Vertical Movement
+    public float initial_y = 0f;
+    public float max_y = 0f;
+    public bool hit_max_y = false;
+    public bool hit_max_fall = false;
     public float jump_impulse = 10f;
-    public float gravity = 15f;
-    [HideInInspector] public bool jump;
-    [HideInInspector] public float vertical_velocity = 0;
+    public float fall_speed = -15f;
+    public bool jump;
+    public bool release_jump = true;
+    public float vertical_velocity = 0;
+
+    //Attacking
+    public GameObject hitbox;
+    private float attack_time = 0f;
+    private float attack_duration = 0.5f;
+    private float hitbox_distance = 1.01f;
+    private float hitbox_position = 0f;
 
     private void OnEnable()
     {
@@ -64,11 +76,45 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         rend = GetComponent<MeshRenderer>();
+        hitbox.SetActive(false);
     }
 
     void Update()
     {
-        //Updates the speed variable on sprinting
+        if (!jump) { release_jump = true; } //Checks for if the player let go of the button to jump again
+        if (!release_jump) //Builds up the max height for jump sensitivity (quick press jump button makes you jump lower)
+        {
+            if (max_y <= initial_y + 2f)
+            {
+                max_y += 0.1f;
+            }
+            else
+            {
+                max_y = initial_y + 2f;
+            }
+        }
+
+        if(move_dir < 0) //Sets the hitbox_position based on the player facing left or right
+        {
+            hitbox_position = -hitbox_distance;
+        }
+        else if(move_dir > 0)
+        {
+            hitbox_position = hitbox_distance;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (attack_time > 0f) //Track the attack duration in fixed update
+        {
+            attack_time -= Time.fixedDeltaTime;
+            if(attack_time <= 0f)
+            {
+                attack_time = 0f;
+                hitbox.SetActive(false);
+            }
+        }
     }
 
     private void Moving(InputAction.CallbackContext context)
@@ -83,7 +129,7 @@ public class Player : MonoBehaviour
 
     private void Attacking(InputAction.CallbackContext context)
     {
-        Debug.Log("Attack");
+        Attack(); //Attack
     }
 
     private void Sprinting(InputAction.CallbackContext context)
@@ -94,6 +140,16 @@ public class Player : MonoBehaviour
     private void Sliding(InputAction.CallbackContext context)
     {
         Debug.Log("Slide");
+    }
+
+    public void Attack() //Sets the hitbox as active, in the direction the player is facing, and starts the attack timer
+    {
+        if(attack_time == 0f)
+        {
+            hitbox.SetActive(true);
+            hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
+            attack_time = attack_duration;
+        }
     }
 
 }
