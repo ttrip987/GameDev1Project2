@@ -6,7 +6,7 @@ public class WalkPlayerState : PlayerState
     public override void Enter(StateMachine state_machine)
     {
         player.rend.material.color = Color.green;
-
+        player.hit_max_fall = false;
     }
 
     public override void Exit(StateMachine state_machine)
@@ -41,7 +41,7 @@ public class WalkPlayerState : PlayerState
         {
             player.vertical_velocity = player.jump_impulse;
             player.initial_y = player.transform.position.y;
-            player.max_y = player.initial_y + 0.5f;
+            player.max_y = player.initial_y + 0.5f; //Sets a minimum jump height at 0.5 units
             player.hit_max_y = false;
             player.hit_max_fall = false;
             player.release_jump = false;

@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
             {
                 max_y += 0.1f;
             }
-            else
+            else //Max jump height is 2 units
             {
                 max_y = initial_y + 2f;
             }
