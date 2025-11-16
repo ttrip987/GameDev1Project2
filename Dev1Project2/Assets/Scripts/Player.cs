@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public bool jump;
     public bool release_jump = true;
     public float vertical_velocity = 0;
+    public CeilingCheck ceiling_check;
 
     //Attacking
     public GameObject hitbox;
@@ -151,5 +152,4 @@ public class Player : MonoBehaviour
             attack_time = attack_duration;
         }
     }
-
 }

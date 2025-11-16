@@ -8,10 +8,10 @@ public class CameraScript : MonoBehaviour
     public Player player;
 
     //Dead Zone Boundaries, measured in screen pixels
-    private float left_edge = Screen.width * 0.3f;
-    private float right_edge = Screen.width * 0.7f;
-    private float top_edge = Screen.height * 0.7f;
-    private float bottom_edge = Screen.height * 0.3f;
+    private float left_edge = Screen.width * 0.45f;
+    private float right_edge = Screen.width * 0.55f;
+    private float top_edge = Screen.height * 0.55f;
+    private float bottom_edge = Screen.height * 0.45f;
 
     //Position Tracking
     private Vector3 player_pos;
