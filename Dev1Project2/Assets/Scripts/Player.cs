@@ -43,6 +43,12 @@ public class Player : MonoBehaviour
     private float hitbox_distance = 1.01f;
     private float hitbox_position = 0f;
 
+    //Health
+    public int maxHits = 3;   // Player can take 3 hits
+    private int currentHits = 0;
+    public bool isDead = false;
+    public UnityEngine.UI.Image[] heartImages;  
+
     private void OnEnable()
     {
         //Set the input action map and enable it
@@ -152,4 +158,45 @@ public class Player : MonoBehaviour
             attack_time = attack_duration;
         }
     }
+
+    //when enemy takes damage
+    public void TakeDamage()
+    {
+        if (isDead) return;
+
+        currentHits++;
+        Debug.Log("Player hit! (" + currentHits + "/" + maxHits + ")");
+
+        UpdateHeartUI();
+
+        if (currentHits >= maxHits)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        Debug.Log("PLAYER IS DEAD");
+
+        // Disable movement + attacks
+        move_dir = 0;
+        sprint = false;
+        jump = false;
+
+        Destroy(gameObject, 1f);
+    }
+
+    private void UpdateHeartUI()
+    {
+        int heartsLeft = maxHits - currentHits;
+
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            // If the heart index is >= hearts left, hide it.
+            heartImages[i].enabled = i < heartsLeft;
+        }
+    }
+
 }
