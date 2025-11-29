@@ -4,7 +4,6 @@ public class IdleScanGunnerState : GunnerState
 {
     public override void Enter(StateMachine state_machine)
     {
-        gunner.rend.material.color = Color.green;
 
         //Sets the initial position of the gunner and the left and right extremes of where they move back and forth
         gunner.pivot_position = gunner.transform.position.x;

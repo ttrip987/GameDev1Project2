@@ -6,8 +6,7 @@ public class SeePlayerGunnerState : GunnerState
 
     public override void Enter(StateMachine state_machine)
     {
-        gunner.rend.material.color = Color.red;
-
+        //Sets the player location when they are seen and starts the bullet timer
         player = GameObject.Find("Player");
         gunner.bullet_timer = gunner.between_burst_timer;
     }

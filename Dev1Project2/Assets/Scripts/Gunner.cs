@@ -16,7 +16,7 @@ public class Gunner : MonoBehaviour
     public ColliderCheck left_check;
     public ColliderCheck right_check;
     public bool start_moving = true;
-    public float start_moving_timer_max = 3f;
+    public float start_moving_timer_max = 2f;
     public float start_moving_timer = 0f;
 
     //Shooting
