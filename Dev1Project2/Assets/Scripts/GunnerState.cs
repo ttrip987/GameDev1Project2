@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GunnerState : MonoBehaviour
+public class GunnerState : State
 {
     protected Gunner gunner;
     void Awake()
