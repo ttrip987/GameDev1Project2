@@ -58,8 +58,8 @@ public class CameraScript : MonoBehaviour
         }
         else { vertical_offset = 0f; }
 
-        Debug.Log(horizontal_offset);
-        Debug.Log(vertical_offset);
+       // Debug.Log(horizontal_offset);
+       // Debug.Log(vertical_offset);
         cam.transform.position = new Vector3(cam.transform.position.x + (horizontal_offset * camera_hspeed), cam.transform.position.y + (vertical_offset * camera_vspeed), cam.transform.position.z);
     }
 

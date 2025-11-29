@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     //Component References
     [HideInInspector] public CharacterController controller;
-    [HideInInspector] public MeshRenderer rend;
+    public MeshRenderer rend;
     public InputActionAsset input;
     public Camera cam;
 
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public bool jump;
     public bool release_jump = true;
     public float vertical_velocity = 0;
-    public CeilingCheck ceiling_check;
+    public ColliderCheck ceiling_check;
 
     //Attacking
     public GameObject hitbox;

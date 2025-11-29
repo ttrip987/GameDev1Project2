@@ -29,7 +29,7 @@ public class AirPlayerState : PlayerState
             player.vertical_velocity += player.fall_speed * 0.08f;
             if (player.vertical_velocity <= player.fall_speed) { player.hit_max_fall = true; }
         }
-        else if ((player.transform.position.y > player.max_y && !player.hit_max_y) || player.ceiling_check.hit_ceiling) //Waits until until player reaches max height OR hits the ceiling
+        else if ((player.transform.position.y > player.max_y && !player.hit_max_y) || player.ceiling_check.hit_collider) //Waits until until player reaches max height OR hits the ceiling
         {
             player.hit_max_y = true;
         }
