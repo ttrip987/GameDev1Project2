@@ -199,4 +199,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void MoveWithElevator(Vector3 elevator_movement)
+    {
+        controller.Move(elevator_movement);
+    }
 }

@@ -5,7 +5,7 @@ public class ColliderCheck : MonoBehaviour
     public bool hit_collider;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+        if(other.gameObject.layer != LayerMask.NameToLayer("Enemy") && other.gameObject.tag != "Elevator")
         {
             hit_collider = true;
         }

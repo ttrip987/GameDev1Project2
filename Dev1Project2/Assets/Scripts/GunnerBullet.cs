@@ -11,6 +11,7 @@ public class GunnerBullet : MonoBehaviour
     private Vector3 direction = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
 
+    //Bullet Life
     private float bullet_life = 10f;
 
     void Start()

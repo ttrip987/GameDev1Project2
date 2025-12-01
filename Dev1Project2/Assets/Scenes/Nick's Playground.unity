@@ -1777,6 +1777,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gunner
       objectReference: {fileID: 0}
+    - target: {fileID: 6032167098784808527, guid: 5b5b9f866e0d6e04c890d69e303cc4c4, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 9175707822036371205, guid: 5b5b9f866e0d6e04c890d69e303cc4c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
