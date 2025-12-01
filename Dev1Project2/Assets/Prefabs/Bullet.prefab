@@ -124,6 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97887847da800d4409d50773c4accbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: -6534780714239527006}
+  rend: {fileID: 807571413288285813}
+  vision: {fileID: 0}
+  move_speed: 0
+  left_check: {fileID: 0}
+  right_check: {fileID: 0}
+  maxHits: 0
+  isDead: 0
+  invulnerability: 0
+  invulnerability_timer: 0.5
 --- !u!54 &-6534780714239527006
 Rigidbody:
   m_ObjectHideFlags: 0

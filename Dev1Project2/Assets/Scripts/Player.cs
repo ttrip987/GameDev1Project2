@@ -47,7 +47,12 @@ public class Player : MonoBehaviour
     public int maxHits = 3;   // Player can take 3 hits
     private int currentHits = 0;
     public bool isDead = false;
-    public UnityEngine.UI.Image[] heartImages;  
+    public UnityEngine.UI.Image[] heartImages;
+
+    //Invulnerability
+    public bool invulnerability = false;
+    public float invulnerability_timer = 1f;
+    private Color last_color;
 
     private void OnEnable()
     {
@@ -122,6 +127,17 @@ public class Player : MonoBehaviour
                 hitbox.SetActive(false);
             }
         }
+        if(invulnerability)
+        {
+            rend.material.color = new Color(135, 206, 235); //Set invulnerability color
+            invulnerability_timer -= Time.fixedDeltaTime; //Start invulnerable timer
+            if (invulnerability_timer <= 0f)  
+            {
+                invulnerability = false; //Reset invulnerability and timer, and reset the color of the model
+                invulnerability_timer = 1f;
+                rend.material.color = last_color;
+            }
+        }
     }
 
     private void Moving(InputAction.CallbackContext context)
@@ -159,20 +175,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    //when enemy takes damage
+    //when the player takes damage
     public void TakeDamage()
     {
         if (isDead) return;
 
-        currentHits++;
-        Debug.Log("Player hit! (" + currentHits + "/" + maxHits + ")");
-
-        UpdateHeartUI();
-
-        if (currentHits >= maxHits)
+        if(!invulnerability)
         {
-            Die();
+            currentHits++;
+            Debug.Log("Player hit! (" + currentHits + "/" + maxHits + ")");
+            invulnerability = true;
+            last_color = rend.material.color;
+
+            // UpdateHeartUI();
+
+            if (currentHits >= maxHits)
+            {
+                Die();
+            }
         }
+        
     }
 
     private void Die()
@@ -202,5 +224,18 @@ public class Player : MonoBehaviour
     public void MoveWithElevator(Vector3 elevator_movement)
     {
         controller.Move(elevator_movement);
+    }
+
+    public bool Heal() //Heals the player, boolean stands for whether it actually healed or not
+    {
+        if(currentHits > 0)
+        {
+            currentHits--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

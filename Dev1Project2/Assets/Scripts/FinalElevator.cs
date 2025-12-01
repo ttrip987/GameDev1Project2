@@ -1,6 +1,7 @@
+using System.Security.Cryptography;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class FinalElevator : MonoBehaviour
 {
 
     //Component References
@@ -24,7 +25,7 @@ public class Elevator : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         elevator_start = transform.position;
-        elevator_end = elevator_start.y + 54.3f; //hard-coded elevator stopping point
+        elevator_end = transform.Find("Endpoint").transform.position.y; //hard-coded elevator stopping point
     }
 
     

@@ -276,16 +276,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695c0b20b99cca343885d1319863cfab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 1543529125227479396}
   rend: {fileID: 1231454166581384258}
   vision: {fileID: 5550419195648356659}
   move_speed: 2
+  left_check: {fileID: 4482411384529451671}
+  right_check: {fileID: 6818804151367871452}
+  maxHits: 0
+  isDead: 0
+  invulnerability: 0
+  invulnerability_timer: 0.5
   pivot_position: 0
   move_dir: -1
   left_max: 0
   right_max: 0
-  left_check: {fileID: 4482411384529451671}
-  right_check: {fileID: 6818804151367871452}
   start_moving: 1
   start_moving_timer_max: 2
   start_moving_timer: 0

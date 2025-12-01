@@ -27,7 +27,7 @@ public class IdlePlayerState : PlayerState
             state_machine.TransitionToState(state_machine.states[1]);
             return;
         }
-        if(player.jump && player.controller.isGrounded) //Transition to Air State
+        if(player.jump) //Transition to Air State
         {
             state_machine.TransitionToState(state_machine.states[2]);
         }

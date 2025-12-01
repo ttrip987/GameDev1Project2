@@ -1,10 +1,10 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunnerBullet : MonoBehaviour
+public class GunnerBullet : Enemy
 {
     //Component References
-    private Rigidbody rb;
+   // private Rigidbody rb;
 
     //Bullet Movement
     private float bullet_speed = 8f;
@@ -16,7 +16,8 @@ public class GunnerBullet : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
+        maxHits = 1;
     }
 
     void FixedUpdate()
@@ -47,10 +48,19 @@ public class GunnerBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player")) //Deal damage to the player
+        {
+            other.gameObject.GetComponent<Player>().TakeDamage();
+        }
+        else if(other.gameObject.layer != LayerMask.NameToLayer("Enemy")) //Delete if it hits the environment
         {
             Destroy(gameObject);
         }
         
+    }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
     }
 }
