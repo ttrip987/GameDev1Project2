@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2016df135c2e347f792cdaf43204bba2
+guid: 051172ca1b859415ab92f68f536057a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1063240248991797053
-    second: LavaFloor_0
+      213: -1637070257311464463
+    second: ElevatorBack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LavaFloor_0
+      name: ElevatorBack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d3fcd088f5361ce00800000000000000
-      internalID: 1063240248991797053
+      spriteID: 1f3c7984645f749e0800000000000000
+      internalID: -1637070257311464463
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LavaFloor_0: 1063240248991797053
+      ElevatorBack_0: -1637070257311464463
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
