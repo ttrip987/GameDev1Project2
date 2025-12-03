@@ -6,7 +6,7 @@ public class FinalElevator : MonoBehaviour
 
     //Component References
     private Rigidbody rb;
-    private Player player;
+    public Player player;
 
     //Elevator Movement
     public float elevator_speed = 5f;
@@ -70,7 +70,6 @@ public class FinalElevator : MonoBehaviour
             in_elevator = false;
             move_elevator = false;
             elevator_timer = 2f;
-            player = null;
             if (transform.position.y < elevator_end)
             {
                 transform.position = elevator_start;
