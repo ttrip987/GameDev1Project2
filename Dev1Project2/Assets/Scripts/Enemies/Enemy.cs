@@ -62,19 +62,10 @@ public class Enemy : MonoBehaviour
     public virtual void Die() //Kills an enemy
     {
         isDead = true;
-        GetComponent<Collider>().enabled = false;
-
         Destroy(gameObject, 1f);
-    }
+        GetComponent<Collider>().enabled = false;
+        GetComponent<StateMachine>().enabled = false;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player")) //Damage the player on touch
-        {
-            if (!isDead) //No damage on collision if the enemy is dead
-            {
-                collision.collider.gameObject.GetComponent<Player>().TakeDamage();
-            }
-        }
+        
     }
 }
