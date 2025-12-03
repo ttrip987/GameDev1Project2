@@ -262,6 +262,7 @@ public class Player : MonoBehaviour
         if(currentHits > 0)
         {
             currentHits--;
+            UpdateHeartUI();
             return true;
         }
         else
