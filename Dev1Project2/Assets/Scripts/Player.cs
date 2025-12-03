@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
     public bool release_jump = true;
     public float vertical_velocity = 0;
     public ColliderCheck ceiling_check;
+    private InputActionMap player_map;
 
     //Attacking
     public GameObject hitbox;
@@ -47,7 +49,10 @@ public class Player : MonoBehaviour
     public int maxHits = 3;   // Player can take 3 hits
     private int currentHits = 0;
     public bool isDead = false;
-    public UnityEngine.UI.Image[] heartImages;
+    public GameObject HealthImageFull;
+    public GameObject HealthImageHitOne;
+    public GameObject HealthImageHitTwo;
+    public GameObject HealthImageHitThree;
 
     //Invulnerability
     public bool invulnerability = false;
@@ -187,7 +192,7 @@ public class Player : MonoBehaviour
             invulnerability = true;
             last_color = rend.material.color;
 
-            // UpdateHeartUI();
+            UpdateHeartUI();
 
             if (currentHits >= maxHits)
             {
@@ -204,21 +209,47 @@ public class Player : MonoBehaviour
 
         // Disable movement + attacks
         move_dir = 0;
-        sprint = false;
-        jump = false;
+        moveAction.Disable();
+        jumpAction.Disable();
+        attackAction.Disable();
+        sprintAction.Disable();
 
-        Destroy(gameObject, 1f);
     }
 
     private void UpdateHeartUI()
     {
-        int heartsLeft = maxHits - currentHits;
-
-        for (int i = 0; i < heartImages.Length; i++)
+        if (currentHits == 0)
         {
-            // If the heart index is >= hearts left, hide it.
-            heartImages[i].enabled = i < heartsLeft;
+            HealthImageFull.SetActive(true);
+            HealthImageHitOne.SetActive(false);
+            HealthImageHitTwo.SetActive(false);
+            HealthImageHitThree.SetActive(false);
         }
+
+        if (currentHits == 1)
+        {
+            HealthImageFull.SetActive(false);
+            HealthImageHitOne.SetActive(true);
+            HealthImageHitTwo.SetActive(false);
+            HealthImageHitThree.SetActive(false);
+        }
+
+        if (currentHits == 2)
+        {
+            HealthImageFull.SetActive(false);
+            HealthImageHitOne.SetActive(false);
+            HealthImageHitTwo.SetActive(true);
+            HealthImageHitThree.SetActive(false);
+        }
+
+        if (currentHits == 3)
+        {
+            HealthImageFull.SetActive(false);
+            HealthImageHitOne.SetActive(false);
+            HealthImageHitTwo.SetActive(false);
+            HealthImageHitThree.SetActive(true);
+        }
+
     }
 
     public void MoveWithElevator(Vector3 elevator_movement)
