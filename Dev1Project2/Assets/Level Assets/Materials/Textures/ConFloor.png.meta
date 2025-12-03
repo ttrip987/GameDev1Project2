@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e63281f49b34b4bea9f09cef0ce17db3
+guid: f679c3f7bd85947bc8eef1afc8a6b510
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6797252230640276021
-    second: LabFloor_0
+      213: -2220099835118352869
+    second: ConFloor_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LabFloor_0
+      name: ConFloor_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5329b00f3e0b45e50800000000000000
-      internalID: 6797252230640276021
+      spriteID: b160ed966fe9031e0800000000000000
+      internalID: -2220099835118352869
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LabFloor_0: 6797252230640276021
+      ConFloor_0: -2220099835118352869
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

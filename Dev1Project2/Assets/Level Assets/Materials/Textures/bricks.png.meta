@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e63281f49b34b4bea9f09cef0ce17db3
+guid: cf9bfecc966544386b3723ea47c4f50b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6797252230640276021
-    second: LabFloor_0
+      213: 5832171855535021699
+    second: bricks_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LabFloor_0
+      name: bricks_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5329b00f3e0b45e50800000000000000
-      internalID: 6797252230640276021
+      spriteID: 38e1236076900f050800000000000000
+      internalID: 5832171855535021699
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LabFloor_0: 6797252230640276021
+      bricks_0: 5832171855535021699
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
