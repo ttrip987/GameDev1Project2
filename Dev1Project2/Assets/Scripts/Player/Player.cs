@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour
     private float attack_duration = 0.5f;
     private float hitbox_distance = 1.01f;
     private float hitbox_position = 0f;
+
+    public Animator anim;
 
     //Health
     public int maxHits = 3;   // Player can take 3 hits
@@ -94,6 +98,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rend = GetComponent<MeshRenderer>();
         hitbox.SetActive(false);
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -119,6 +124,12 @@ public class Player : MonoBehaviour
         {
             hitbox_position = hitbox_distance;
         }
+
+        // Update idle / walk / run animations
+        float speedValue = Mathf.Abs(move_dir);
+
+        anim.SetFloat("Speed", speedValue);
+        anim.SetBool("IsRunning", sprint && speedValue > 0);
     }
 
     void FixedUpdate()
@@ -174,10 +185,23 @@ public class Player : MonoBehaviour
     {
         if(attack_time == 0f)
         {
-            hitbox.SetActive(true);
+            anim.SetTrigger("Attack");
+
+            StartCoroutine(DelayedHitbox());
             hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
             attack_time = attack_duration;
         }
+    }
+
+    private IEnumerator DelayedHitbox()
+    {
+        yield return new WaitForSeconds(0.7f); // delay before hitbox activates
+
+        hitbox.SetActive(true);
+        hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
+
+        // hitbox stays active for the remainder of the attack_time
+        // but will still be disabled by your existing FixedUpdate attack timer
     }
 
     //when the player takes damage
@@ -206,6 +230,8 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         Debug.Log("PLAYER IS DEAD");
+        anim.SetTrigger("Die");
+
 
         // Disable movement + attacks
         move_dir = 0;
