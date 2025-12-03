@@ -269,4 +269,15 @@ public class Player : MonoBehaviour
             return false;
         }
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if(!hit.collider.GetComponent<Enemy>().isDead)
+            {
+                TakeDamage();
+            }
+        }
+    }
 }

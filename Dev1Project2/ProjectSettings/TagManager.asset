@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Elevator
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
