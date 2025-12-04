@@ -39887,6 +39887,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6521404396503157921, guid: 72510ab3488dc8f4ca6e89cbbaad914f, type: 3}
+      propertyPath: jump_impulse
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521404396503157921, guid: 72510ab3488dc8f4ca6e89cbbaad914f, type: 3}
       propertyPath: GameOverScreen
       value: 
       objectReference: {fileID: 915865333}
