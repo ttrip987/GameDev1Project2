@@ -97,7 +97,7 @@ ModelImporter:
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 0
+      cycleOffset: 0.12
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
@@ -179,8 +179,8 @@ ModelImporter:
       name: Attack
       takeName: Armature|ArmatureAction
       internalID: 8569247068082238595
-      firstFrame: 1190
-      lastFrame: 1257
+      firstFrame: 1213
+      lastFrame: 1234
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -7,6 +7,7 @@ public class GameOverScreen : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public string nextSceneName = "Level";
+    public Player player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,8 +27,8 @@ public class GameOverScreen : MonoBehaviour
         Debug.Log("Quit Game");
     }
 
-        public void Retry()
+    public void Retry()
     {
-        SceneManager.LoadScene(nextSceneName);
+        player.Reset();
     }
 }
