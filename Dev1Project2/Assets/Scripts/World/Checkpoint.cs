@@ -1,5 +1,4 @@
-using JetBrains.Annotations;
-using UnityEditor.Rendering;
+
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
