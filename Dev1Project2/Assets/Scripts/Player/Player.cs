@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -45,6 +47,8 @@ public class Player : MonoBehaviour
     private float hitbox_distance = 1.01f;
     private float hitbox_position = 0f;
 
+    public Animator anim;
+
     //Health
     public int maxHits = 3;   // Player can take 3 hits
     private int currentHits = 0;
@@ -58,6 +62,12 @@ public class Player : MonoBehaviour
     public bool invulnerability = false;
     public float invulnerability_timer = 1f;
     private Color last_color;
+
+    public GameObject GameOverScreen;
+    public GameObject Pause;
+    private bool isPaused = false;
+
+    public Button continueButton;
 
     private void OnEnable()
     {
@@ -94,6 +104,12 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rend = GetComponent<MeshRenderer>();
         hitbox.SetActive(false);
+        anim = GetComponentInChildren<Animator>();
+        GameOverScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
+        continueButton.onClick.AddListener(ResumeGame);
+
     }
 
     void Update()
@@ -118,6 +134,22 @@ public class Player : MonoBehaviour
         else if(move_dir > 0)
         {
             hitbox_position = hitbox_distance;
+        }
+
+        // Update idle / walk / run animations
+        float speedValue = Mathf.Abs(move_dir);
+
+        anim.SetFloat("Speed", speedValue);
+        anim.SetBool("IsRunning", sprint && speedValue > 0);
+
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            if (isPaused)
+            ResumeGame();
+            else
+            PauseGame(); 
         }
     }
 
@@ -174,11 +206,15 @@ public class Player : MonoBehaviour
     {
         if(attack_time == 0f)
         {
+            anim.SetTrigger("Attack");
+
             hitbox.SetActive(true);
+
             hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
             attack_time = attack_duration;
         }
     }
+
 
     //when the player takes damage
     public void TakeDamage()
@@ -206,6 +242,13 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         Debug.Log("PLAYER IS DEAD");
+        anim.SetTrigger("Die");
+        GameOverScreen.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true; // Optionally make the cursor visible
+
+
 
         // Disable movement + attacks
         move_dir = 0;
@@ -280,5 +323,26 @@ public class Player : MonoBehaviour
                 TakeDamage();
             }
         }
+    }
+
+
+    public void ResumeGame()
+    {
+        Pause.SetActive(false);     
+        Time.timeScale = 1f;             
+        isPaused = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void PauseGame()
+    {
+        Pause.SetActive(true);      
+        Time.timeScale = 0f;              
+        isPaused = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
