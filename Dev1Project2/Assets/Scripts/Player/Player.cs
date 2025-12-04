@@ -37,6 +37,9 @@ public class Player : MonoBehaviour
     public bool jump;
     public bool release_jump = true;
     public float vertical_velocity = 0;
+    public float grace_period = 0.2f;
+    public float grace_timer = 0f;
+    public bool in_grace = false;
     public ColliderCheck ceiling_check;
     private InputActionMap player_map;
 
@@ -68,6 +71,8 @@ public class Player : MonoBehaviour
     private bool isPaused = false;
 
     public Button continueButton;
+
+    public GameObject checkp;
 
     private void OnEnable()
     {
@@ -344,5 +349,25 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void Reset()
+    {
+        isDead = false;
+        GameOverScreen.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Disable movement + attacks
+        moveAction.Enable();
+        jumpAction.Enable();
+        attackAction.Enable();
+        sprintAction.Enable();
+
+        currentHits = 0;
+        UpdateHeartUI();
+
+        transform.position = checkp.GetComponent<CheckpointTracker>().GetCheckpoint();
     }
 }

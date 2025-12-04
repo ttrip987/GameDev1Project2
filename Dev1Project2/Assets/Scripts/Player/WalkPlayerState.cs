@@ -37,7 +37,7 @@ public class WalkPlayerState : PlayerState
         {
             state_machine.TransitionToState(state_machine.states[0]);
         }
-        if (player.jump && player.release_jump && player.controller.isGrounded) //Transition to air state by jumping
+        if (player.jump && player.release_jump && (player.controller.isGrounded || player.in_grace)) //Transition to air state by jumping
         {
             player.vertical_velocity = player.jump_impulse;
             player.initial_y = player.transform.position.y;
@@ -49,11 +49,25 @@ public class WalkPlayerState : PlayerState
         }
         if(!player.controller.isGrounded) //Transition to air state by falling
         {
-            player.vertical_velocity = 0;
-            player.hit_max_y = true;
-            player.hit_max_fall = false;
+            if(player.grace_timer <= 0) //Gives the player a quick grace period on falling for downwards slopes
+            {
+                player.grace_timer = player.grace_period;
+                player.in_grace = true;
+            }
+            else
+            {
+                player.grace_timer -= Time.fixedDeltaTime;
+                if(player.grace_timer <= 0) //Allow the transition
+                {
+                    player.vertical_velocity = 0;
+                    player.hit_max_y = true;
+                    player.hit_max_fall = false;
+                    player.in_grace = false;
 
-            state_machine.TransitionToState(state_machine.states[2]);
+                    state_machine.TransitionToState(state_machine.states[2]);
+                }
+            }
+
         }
         #endregion
     }
