@@ -63,6 +63,12 @@ public class Player : MonoBehaviour
     public float invulnerability_timer = 1f;
     private Color last_color;
 
+    public GameObject GameOverScreen;
+    public GameObject Pause;
+    private bool isPaused = false;
+
+    public Button continueButton;
+
     private void OnEnable()
     {
         //Set the input action map and enable it
@@ -99,6 +105,11 @@ public class Player : MonoBehaviour
         rend = GetComponent<MeshRenderer>();
         hitbox.SetActive(false);
         anim = GetComponentInChildren<Animator>();
+        GameOverScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
+        continueButton.onClick.AddListener(ResumeGame);
+
     }
 
     void Update()
@@ -130,6 +141,16 @@ public class Player : MonoBehaviour
 
         anim.SetFloat("Speed", speedValue);
         anim.SetBool("IsRunning", sprint && speedValue > 0);
+
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            if (isPaused)
+            ResumeGame();
+            else
+            PauseGame(); 
+        }
     }
 
     void FixedUpdate()
@@ -187,22 +208,13 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("Attack");
 
-            StartCoroutine(DelayedHitbox());
+            hitbox.SetActive(true);
+
             hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
             attack_time = attack_duration;
         }
     }
 
-    private IEnumerator DelayedHitbox()
-    {
-        yield return new WaitForSeconds(0.7f); // delay before hitbox activates
-
-        hitbox.SetActive(true);
-        hitbox.transform.localPosition = new Vector3(hitbox_position, 0, 0);
-
-        // hitbox stays active for the remainder of the attack_time
-        // but will still be disabled by your existing FixedUpdate attack timer
-    }
 
     //when the player takes damage
     public void TakeDamage()
@@ -231,6 +243,11 @@ public class Player : MonoBehaviour
         isDead = true;
         Debug.Log("PLAYER IS DEAD");
         anim.SetTrigger("Die");
+        GameOverScreen.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true; // Optionally make the cursor visible
+
 
 
         // Disable movement + attacks
@@ -306,5 +323,26 @@ public class Player : MonoBehaviour
                 TakeDamage();
             }
         }
+    }
+
+
+    public void ResumeGame()
+    {
+        Pause.SetActive(false);     
+        Time.timeScale = 1f;             
+        isPaused = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void PauseGame()
+    {
+        Pause.SetActive(true);      
+        Time.timeScale = 0f;              
+        isPaused = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
